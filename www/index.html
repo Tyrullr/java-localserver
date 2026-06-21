@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java custom Web Server</title>
+    <style>
+        body {
+            color: #333;
+            background-color: #fafafa;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: #111;
+        }
+
+        .header p {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #fff;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background: #111;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #333;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+            color: #555;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Java custom Web Server</h1>
+        <p>A high-performance HTTP/1.1 Non-Blocking server built entirely in Java Core.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Server Capabilities</h2>
+            <ul>
+                <li>Single-threaded event loop (`java.nio.channels.Selector`)</li>
+                <li>Manual parsing of chunked &amp; unchunked requests</li>
+                <li>Support for GET, POST, DELETE methods</li>
+                <li>Stateful Session Management via secure Cookies</li>
+                <li>Asynchronous multi-process Python CGI scripts</li>
+                <li>Directory listings &amp; custom error page mapping</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Sessions &amp; Cookies</h2>
+            <form action="/set-session" method="POST">
+                <div class="form-group">
+                    <label for="username">Set Session User Name:</label>
+                    <input type="text" id="username" name="username" placeholder="e.g., Jean Dupont" required>
+                </div>
+                <button type="submit" class="btn">Establish Session</button>
+            </form>
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="/check-session" style="color: #0066cc; text-decoration: none; font-size: 0.9rem;">View Current Session Info</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>File Upload (POST)</h2>
+            <form action="/uploads" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="upload-file">Choose File to Upload:</label>
+                    <input type="file" id="upload-file" name="file" required>
+                </div>
+                <button type="submit" class="btn">Upload to Server</button>
+            </form>
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="/uploads" style="color: #0066cc; text-decoration: none; font-size: 0.9rem;">Browse Uploaded Files</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Python CGI Test</h2>
+            <form action="/cgi-bin/hello.py" method="GET">
+                <div class="form-group">
+                    <label for="cgi-param">Pass query parameter to CGI:</label>
+                    <input type="text" id="cgi-param" name="name" placeholder="Name to say hello to...">
+                </div>
+                <button type="submit" class="btn">Run CGI Script</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
